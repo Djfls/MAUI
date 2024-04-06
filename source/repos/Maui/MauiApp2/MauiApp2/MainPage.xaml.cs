@@ -1,0 +1,46 @@
+﻿namespace MauiApp2
+{
+    public partial class MainPage : ContentPage
+    {
+        int count = 0;
+
+        public MainPage()
+        {
+            InitializeComponent(); 
+            this.Loaded += MainPage_Loaded;
+        }
+        private async void MainPage_Loaded(object sender, EventArgs e)
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/sample.db";
+            System.Diagnostics.Debug.WriteLine($"path: {path}");
+            using var stream = await FileSystem.OpenAppPackageFileAsync("sample.db");
+            using var reader = new BinaryReader(stream);
+            using var fs = System.IO.File.OpenWrite(path);
+            using var writer = new BinaryWriter(fs);
+
+            long size = 0;
+            while (true)
+            {
+                var data = reader.ReadBytes(1024 * 1024);
+                writer.Write(data);
+                size += data.Length;
+                if (data.Length < 1024 * 1024) break;
+            }
+            System.Diagnostics.Debug.WriteLine($"total: {size}");
+
+        }
+        private void OnCounterClicked(object sender, EventArgs e)
+        {
+            count++;
+
+            if (count == 1)
+                CounterBtn.Text = $"Clicked {count} time";
+            else
+                CounterBtn.Text = $"Clicked {count} times";
+
+            SemanticScreenReader.Announce(CounterBtn.Text);
+        }
+
+
+    }
+}
