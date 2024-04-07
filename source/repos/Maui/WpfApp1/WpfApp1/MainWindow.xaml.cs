@@ -22,6 +22,9 @@ namespace WpfApp1
     {
         public MainWindow()
         {
+            var a = new Class1();
+            var a2 = new Class2();
+
             InitializeComponent();
         }
     }
