@@ -28,7 +28,7 @@ namespace WpfApp1
         public MainWindow()
         {
             var a = new Class1();
-            //var a2 = new Class2();
+            var a2 = new Class2();
             InitializeComponent();
 
             this.PreviewMouseRightButtonDown += Window_PreviewMouseRightButtonDown;
@@ -91,9 +91,8 @@ namespace WpfApp1
             {
                 Keyboard.FocusedElement.RaiseEvent(e);
                 Application.Current.Shutdown();
-
             }
-
+            //KeyBindの場合画面が取得できない　暫定対応中
         }
     }
     public static class SimpleButton
