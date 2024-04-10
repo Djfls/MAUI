@@ -16,12 +16,15 @@
     </Page.DataContext>
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock FontSize="40" x:Name="sample">Hello WPF by Page1.xaml</TextBlock>
-            <TextBox FontSize="40" x:Name="_nameBox">なまえ</TextBox>
-            <TextBlock x:Name="_nameBox2" Height=" 50" >            <Hyperlink RequestNavigate="Hyperlink_RequestNavigate">
-                続行
-            </Hyperlink></TextBlock>
+            <TextBlock x:Name="sample">Hello WPF by Page1.xaml</TextBlock>
+            <TextBox x:Name="_nameBox">なまえ</TextBox>
+            <TextBlock x:Name="_nameBox2" >
+                <Hyperlink RequestNavigate="Hyperlink_RequestNavigate">続行</Hyperlink>
+            </TextBlock>
             <Button Content="次へ" Command="{Binding NavigateNextCommand}" CommandParameter="パラメータも渡せます" />
+            <local:UserControl1></local:UserControl1>
+            <local:UserControl2></local:UserControl2>
+            <local:UserControl3></local:UserControl3>
         </StackPanel>
     </Grid>
 </Page>

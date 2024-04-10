@@ -30,7 +30,7 @@ namespace WpfApp2
 
         public Page2(string text)
         {
-           Name = text;
+            Name = text;
         }
         NavigationService _navigationService;
 
@@ -41,7 +41,7 @@ namespace WpfApp2
 
             _name.Content = Name ?? "";
 
-           _navigationService = this.NavigationService;
+             _navigationService = this.NavigationService;
             _navigationService.Navigated += _navigationService_Navigated; ;
 
         }
