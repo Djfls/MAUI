@@ -22,6 +22,7 @@
                 <Hyperlink RequestNavigate="Hyperlink_RequestNavigate">続行</Hyperlink>
             </TextBlock>
             <Button Content="次へ" Command="{Binding NavigateNextCommand}" CommandParameter="パラメータも渡せます" />
+            <local:UserControl5></local:UserControl5>
             <local:UserControl1></local:UserControl1>
             <local:UserControl2></local:UserControl2>
             <local:UserControl3></local:UserControl3>
