@@ -34,7 +34,6 @@ namespace WpfApp2
             binding.Path = new PropertyPath("Text");
             cc1.SetBinding(ContentControl.ContentProperty, binding);
             DataContext = new User4ViewModel();
-
         }
 
         private void b3_Click(object sender, RoutedEventArgs e)

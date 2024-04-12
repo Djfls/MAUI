@@ -27,7 +27,7 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ListBox ItemsSource="{Binding XPath=\Media\Book}" 
+        <ListBox ItemsSource="{Binding XPath=/Media/Book}" 
                  ItemTemplate= "{DynamicResource template}" ></ListBox>
     </Grid>
 </UserControl>

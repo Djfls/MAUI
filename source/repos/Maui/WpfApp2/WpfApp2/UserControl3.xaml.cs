@@ -62,12 +62,19 @@ namespace WpfApp2
 
     public class Person
     {
+
+        public Name Name1 { get; set; }
         public string Name { get; set; }
         public bool CanCode { get; set; }
         public Person(string name, bool canCode)
         {
             Name = name;
             CanCode = canCode;
+        }
+
+        public Person(Name name)
+        {
+            this.Name1 = name;
         }
     }
 
