@@ -1,0 +1,75 @@
+﻿<Window x:Class="WpfApp1.DataAndCommands"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="DataAndCommands" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <StackPanel.Resources>
+                <ControlTemplate x:Key="ButtonTemplate1" TargetType="{x:Type Button}">
+                    <Border x:Name="border" Background="Aqua">
+                        <ContentPresenter></ContentPresenter>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsPressed" Value="false"></Condition>
+                                <Condition Property="IsMouseOver" Value="false"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="border" Property="Background" Value="Yellow"></Setter>
+                        </MultiTrigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="Red"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </StackPanel.Resources>
+            <Button  Template="{StaticResource ButtonTemplate1}" Height="50">
+                テンプレート適用</Button>
+        <ListBox Margin="2" Name="_files">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text='{Binding Path=Name}'></TextBlock>
+                        <Button                            
+                            CommandParameter="{Binding Path=FullName}">
+                            <Button.Command>
+                                <Binding>
+                                    <Binding.Converter>
+                                        <local:FileToCommandConverter></local:FileToCommandConverter>
+                                    </Binding.Converter>
+                                </Binding>
+                            </Button.Command>
+                            表示
+                        </Button>
+                        <Button 
+                            x:Name="_showButton"
+                            Command="{x:Static local:DataAndCommands.BlockedCommand}"
+                            CommandParameter="{Binding Path=FullName}"
+                            Content="ブロック">
+                            
+                        </Button>
+                    </WrapPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger  Value=".txt">
+                            <!--Binding="{Binding Path=Extension}"-->
+                            <DataTrigger.Binding>
+                                <Binding Path="Extension">
+                                    <Binding.Converter>
+                                        <local:ToLowerInvariantConverter></local:ToLowerInvariantConverter>
+                                    </Binding.Converter>
+                                </Binding>
+                            </DataTrigger.Binding>
+                            <Setter  TargetName="_showButton" Property="Command" Value="{x:Static local:DataAndCommands.OpenCommand}"></Setter>
+                            <Setter  TargetName="_showButton" Property="Content" Value="表示"></Setter>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        </StackPanel>
+    </Grid>
+</Window>

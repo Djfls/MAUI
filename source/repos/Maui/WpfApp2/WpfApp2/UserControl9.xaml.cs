@@ -33,6 +33,9 @@ namespace WpfApp2
         {
             InitializeComponent();
 
+            ICollectionView collectionView = new ListCollectionView(people);
+            collectionView.Filter = delegate (object item) { return ((Person)item).Name1.V1 != "Don"; };
+
             StackPanel stackPanel = new StackPanel();
             
             ListBox listBox = new ListBox();
@@ -40,16 +43,16 @@ namespace WpfApp2
             listBox.ItemsSource = people;
 
             ListBox listBox1 = new ListBox();
-            ICollectionView collectionView = new ListCollectionView(people);
-            collectionView.Filter = delegate (object item) { return ((Person)item).Name1.V1 != "Don"; };
-
-
+            listBox1.DisplayMemberPath = "Name1.V1";
+            listBox1.ItemsSource = collectionView;
 
 
             stackPanel.Children.Add(new TextBlock(new Run("変更なし")));
             stackPanel.Children.Add(listBox);
+            stackPanel.Children.Add(new TextBlock(new Run("変更済み")));
+            stackPanel.Children.Add(listBox1);
 
-
+            Content = stackPanel;
         }
     }
 }

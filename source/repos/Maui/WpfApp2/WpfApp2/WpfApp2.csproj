@@ -85,6 +85,9 @@
     <Compile Include="UserControl8.xaml.cs">
       <DependentUpon>UserControl8.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControl9.xaml.cs">
+      <DependentUpon>UserControl9.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Page1ViewModel.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
@@ -138,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControl8.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControl9.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

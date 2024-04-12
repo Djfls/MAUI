@@ -1,0 +1,145 @@
+﻿<Window Style="{DynamicResource WindowStyle1}" x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        PreviewMouseRightButtonDown='Window_PreviewMouseRightButtonDown'
+     MouseRightButtonDown='Button_MouseRightButtonDown'
+        >
+    <Window.Resources>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Red"/>
+        <ControlTemplate x:Key="ButtonTemplate1" TargetType="{x:Type ButtonBase}">
+            <!--boderのカラーは設定していないから、枠線に色は着かない-->
+            <Border x:Name="border" Background="{TemplateBinding Background}">
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ButtonTemplateSimple" TargetType="{x:Type Button}">
+            <Border x:Name="border2" Background='{DynamicResource {x:Static local:SimpleButton.RingBrush}}'>
+                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+        </ControlTemplate>
+        <Style x:Key="WindowStyle1" TargetType="{x:Type Window}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <ContentPresenter>
+                            <DockPanel>
+                                <StatusBar DockPanel.Dock='Bottom'>
+                                    <StatusBarItem>
+                                        <Button Command='{x:Static ApplicationCommands.Close}'>閉じる</Button>
+                                    </StatusBarItem>
+                                </StatusBar>
+                            </DockPanel>
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <FlowDocumentScrollViewer>
+            <FlowDocument>
+                <FlowDocument.Resources>
+                    <Style TargetType='{x:Type Paragraph}'>
+                        <Setter Property='FontFamily' Value='MS 明朝'/>
+                        <Setter Property='Margin' Value='3'/>
+                    </Style>
+                    <Style x:Key='ButtonStyle2' TargetType='{x:Type Button}' >
+                        <Setter Property='Background' Value='#FF9526B7'/>
+                    </Style>
+                    <Style x:Key='ButtonStyle' TargetType='{x:Type Button}' >
+                        <Setter Property='FontFamily' Value='MS ゴシック'/>
+                        <Setter Property='Margin' Value='3'/>
+                        <Style.Triggers>
+                            <!--これは記法はあってるがうまくいかない　styleは、ControlTemplateで指定されたプロパティの値を上書きできない-->
+                            <Trigger Property='IsPressed' Value="True">
+                                <Setter Property='Background' Value='#FF9526B7'></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <Style TargetType='{x:Type RadioButton}'>
+                        <Setter Property='FontFamily' Value='MS ゴシック'/>
+                        <Setter Property='Margin' Value='3'/>
+                    </Style>
+                    <Style TargetType='{x:Type CheckBox}'>
+                        <Setter Property='FontFamily' Value='MS ゴシック'/>
+                        <Setter Property='Margin' Value='3'/>
+                    </Style>
+                    <Style TargetType='{x:Type Ellipse}'>
+                        <Setter Property='Fill' Value='Red'/>
+                        <Setter Property='Margin' Value='3'/>
+                    </Style>
+                    <Style TargetType='{x:Type Rectangle}'>
+                        <Setter Property='Fill' Value='Blue'/>
+                        <Setter Property='Margin' Value='3'/>
+                    </Style>
+                </FlowDocument.Resources>
+
+                <Paragraph>こんにちは</Paragraph>
+                <Paragraph>
+                    <RadioButton>いくつかの</RadioButton>
+                    <Button Template="{DynamicResource ButtonTemplate1}"  Width='50' Height='50' Background='#FF3578B3'>UI</Button>
+                    <Button Template="{DynamicResource ButtonTemplate1}" Style="{DynamicResource ButtonStyle}"  Width='50' Height='50' Background='#FF3578B3'>UI</Button>
+                    <Button Template="{DynamicResource ButtonTemplate1}"  Width='50' Height='50'>UI
+                        <Button.Style>
+                            <Style TargetType='Button'>
+                                <Setter Property='Background' Value='Yellow'/>
+                                <!--Templateが優先される。boderのカラーは設定していないから、枠線に色は着かない-->
+                                <Setter Property='BorderBrush' Value='Black'/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Width='50' Height='50'>UI
+                        <Button.Style>
+                            <Style TargetType='Button'>
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key='{x:Static local:SimpleButton.RingBrush}' Color="DarkGreen"></SolidColorBrush>
+                                </Style.Resources>
+                                <Setter Property='Template' Value='{StaticResource ButtonTemplateSimple}'/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button  Style="{DynamicResource ButtonStyle2}"  Width='50' Height='50'>UI</Button>
+                    <Button Style="{DynamicResource ButtonStyle}" Width='50' Height='50'>UI</Button>
+                    <CheckBox>コントロール</CheckBox>
+                </Paragraph>
+                <Paragraph>
+                    <Ellipse Width='15' Height='15'/>
+                    <Rectangle Width='15'  Height='15'/>
+                </Paragraph>
+            </FlowDocument>
+        </FlowDocumentScrollViewer>
+        <GroupBox PreviewMouseRightButtonDown='GroupBox_PreviewMouseRightButtonDown'>
+            <StackPanel>
+                <Button>ボタン1</Button>
+                <Button PreviewMouseDown='Button_PreviewMouseDown' MouseRightButtonDown='Button_MouseRightButtonDown'>ボタン2</Button>
+            </StackPanel>
+        </GroupBox>
+
+        <MenuItem Header="ファイル">
+            <MenuItem Header="終了" Click="MenuItem_Click" Command='{x:Static local:MainWindow.ExitCommand}'>
+                <!--<MenuItem.Command>
+                    <local:Exit></local:Exit>
+                </MenuItem.Command>-->
+            </MenuItem>
+        </MenuItem>
+
+        <TextBlock>私のプログラムへようこそ
+        <Hyperlink Click="MenuItem_Click">
+        <Hyperlink.Command><local:Exit/></Hyperlink.Command>
+            終了
+        </Hyperlink>ください
+            
+        </TextBlock>
+    </Grid>
+</Window>
