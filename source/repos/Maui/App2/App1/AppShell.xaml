@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="App1.AppShell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:App1"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    TabNavigation="Cycle"
+    mc:Ignorable="d"
+    KeyDown="Page_KeyDown" 
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Thickness x:Key="NavigationViewConteintMargin">0,48,0,0</Thickness>
+    </Page.Resources>
+    <Grid x:Name="LayoutRoot">
+        <Border>
+            <StackPanel>
+                <Border>
+                    <Image Source="Assets/Square44x44Logo.png"/>
+                </Border>
+                <TextBlock></TextBlock>
+            </StackPanel>
+        </Border>
+        <NavigationView x:Name="NavView">
+            <NavigationView.MenuItems>
+                
+            </NavigationView.MenuItems>
+            <NavigationView.PaneFooter>
+                <StackPanel>
+                    
+                </StackPanel>
+            </NavigationView.PaneFooter>
+            <Frame x:Name="frame"
+                   Margin="20,0,0,0"
+                   Navigating="frame_Navigating">
+                <Frame.ContentTransitions>
+                    <NavigationThemeTransition>
+                        <EntranceNavigationTransitionInfo></EntranceNavigationTransitionInfo>
+                    </NavigationThemeTransition>
+                </Frame.ContentTransitions>
+            </Frame>
+        </NavigationView>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource LargeWindowSnapPoint}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MediumWindowSnapPoint}" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource MinWindowSnapPoint}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AppTitleBar.Margin" Value="88,0,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</Page>
