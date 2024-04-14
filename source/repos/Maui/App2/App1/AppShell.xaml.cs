@@ -1,3 +1,4 @@
+using App1.View;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -24,6 +25,10 @@ namespace App1
     /// </summary>
     public sealed partial class AppShell : Page
     {
+        public Frame AppFrame => frame;
+        public readonly string OrderListLabel = "Order list";
+        public readonly string CustomerListLabel = "Customer list";
+
         public AppShell()
         {
             this.InitializeComponent();
@@ -73,7 +78,29 @@ namespace App1
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
+                if (e.SourcePageType == typeof(Page1))
+                {
+                    NavView.SelectedItem = CustomerListMenuItem;
+                }
+                else if(e.SourcePageType==typeof(Page2))
+                {
+                    NavView.SelectedItem = OrderListMenuItem;
+                }
+                else if (e.SourcePageType == typeof(Page3))
+                {
+                    NavView.SelectedItem = NavView.SettingsItem;
+                }
             }
+        }
+
+        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        {
+
+        }
+
+        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+
         }
     }
 }
