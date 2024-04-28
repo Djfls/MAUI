@@ -13,11 +13,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Globalization;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -46,6 +48,15 @@ namespace App1
         {
             m_window = new MainWindow();
 
+            if (ApplicationData.Current.LocalSettings.Values.TryGetValue("datasource",out object dataSource)) 
+            {
+                switch (dataSource.ToString()) 
+                {
+                    case "Rest": 
+                }
+            } 
+            else { }
+
             AppShell shell = m_window.Content as AppShell ?? new AppShell();
             shell.Language = ApplicationLanguages.Languages[0];
             m_window.Content = shell;
@@ -57,6 +68,20 @@ namespace App1
             }
 
             m_window.Activate();
+        }
+
+        public static bool UseRest() 
+        {
+            try
+            {
+                var accessToken = Task.Run(async()=>await );
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw;
+            }
+            return true;
         }
 
         private Window m_window;
