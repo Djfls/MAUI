@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace App4.Logic
+namespace App4.Logic.L2
 {
   public class LangtonsLoops
   {

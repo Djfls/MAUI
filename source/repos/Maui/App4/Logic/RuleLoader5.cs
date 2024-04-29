@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Windows.Storage;
 #endif
 
-namespace App4.Logic
+namespace App4.Logic.L5
 {
   public class RuleLoader
   {
-    public static async Task<App4.Logic.Rule> LoadAsync(string ruleTableFileName)
+    public static async Task<App4.Logic.L5.Rule> LoadAsync(string ruleTableFileName)
     {
       var rule = new Rule();
       string line;

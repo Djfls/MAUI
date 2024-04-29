@@ -119,7 +119,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Logic\LangtonsLoops.cs" />
+    <Compile Include="Logic\LangtonsLoops3.cs" />
+    <Compile Include="Logic\LangtonsLoops2.cs" />
+    <Compile Include="Logic\LangtonsLoops4.cs" />
+    <Compile Include="Logic\LangtonsLoops5.cs" />
+    <Compile Include="Logic\Rule5.cs" />
+    <Compile Include="Logic\RuleLoader5.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
