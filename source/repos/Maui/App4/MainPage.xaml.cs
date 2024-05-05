@@ -88,7 +88,7 @@ namespace App4
             {
                 button.Content = STOP;
 
-                await RunLoopsAsync(3);
+                await RunLoopsAsync(3);//ここを変える
 
                 button.Content = START;
             }
