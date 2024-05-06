@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography.X509Certificates;
@@ -31,7 +32,9 @@ namespace App5
         public MainPage()
         {
             this.InitializeComponent();
-            MethodAsync();
+            //MethodAsync();
+            //test.RunTaskAsync(new string[] { "https://ufcpp.net/study/csharp/sp5_awaitable.html", });
+            test.RunPseudoAsync(new string[] { "https://ufcpp.net/study/csharp/sp5_awaitable.html", });
         }
 
         Task<int> task1= new Task<int>(() => { return hoge1(); });
@@ -50,6 +53,51 @@ namespace App5
             //}
 
             return n;
+        }
+    }
+    static public class test 
+    {
+        public static async void RunTaskAsync(params string[] uriList)
+        {
+            var client = new WebClient();
+
+            foreach (var uri in uriList)
+            {
+                var html = await client.DownloadStringTaskAsync(uri);
+            }
+        }
+        public static void RunPseudoAsync(params string[] uriList) 
+        {
+            AsyncHelper(RunIterator(uriList));
+        }
+        private static IEnumerable<Task> RunIterator(params string[] uriList) 
+        { var client = new WebClient();
+            foreach (var item in uriList)
+            {
+                var task = client.DownloadStringTaskAsync(item);
+                if (!task.IsCompleted) 
+                {
+                    yield return task;
+                }
+                var html = task.Result;
+                //await相当の処理　以上
+            }
+
+            yield return null;
+        }
+
+        private static void AsyncHelper(IEnumerable<Task> asyncTask)
+        {
+            var e = asyncTask.GetEnumerator();
+            Action a = null;
+            a = () => 
+            {
+                if (e.MoveNext()&&e.Current!=null) 
+                {
+                    e.Current.ContinueWith(t=>a());
+                }
+            };
+            a();
         }
     }
     class Awatable
